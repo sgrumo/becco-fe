@@ -1,24 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { signUp } from '../../utils/api';
 
-const LoginForm = () => {
+const SignUpForm = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    signUp(username, email, password).then(res => console.log(res)).catch(err => setErrorMessage(err.response.data.message));
+  }
+
+  const handleChangeEmail = (value) => {
+    if (errorMessage) setErrorMessage('')
+    setEmail(value);
+  }
+
+  const handleChangePassword = (value) => {
+    if (errorMessage) setErrorMessage('')
+    setPassword(value);
+  }
+
+  const handleChangeUsername = (value) => {
+    if (errorMessage) setErrorMessage('')
+    setUsername(value);
+  }
+
+
   return (
-    <form>
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" />
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <form onSubmit={submitForm}>
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Metti qui l'email" required onChange={ev => handleChangeEmail(ev.target.value)} />
       </div>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" aria-describedby="username" placeholder="Enter username" />
+      <div className="form-group">
+        <label htmlFor="username">Username</label>
+        <input type="text" className="form-control" id="username" aria-describedby="username" placeholder="Metti qui l'username" required onChange={ev => handleChangeUsername(ev.target.value)} />
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password" />
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
+        <input type="password" className="form-control" id="password" placeholder="Metti qui la password" required onChange={ev => handleChangePassword(ev.target.value)} />
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      {errorMessage &&
+        <div className="alert alert-danger" role="alert">
+          {errorMessage}
+        </div>
+      }
+      <button type="submit" className="btn btn-primary">Registrati</button>
     </form>
   )
 }
 
-export default LoginForm;
+export default SignUpForm;
