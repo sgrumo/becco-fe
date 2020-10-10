@@ -7,6 +7,7 @@ const API = axios.create({
 });
 
 
+// Auth
 export const signIn = (email, password) => {
   return API.post('/auth/signin', { email, password });
 }
@@ -15,6 +16,7 @@ export const signUp = (username, email, password) => {
   return API.post('/auth/signup', { username, email, password });
 }
 
+// Matches
 export const getMatches = () => {
   const token = sessionStorage.getItem('token');
   const config = {
@@ -28,13 +30,13 @@ export const createMatch = (name, visibility, password) => {
   const config = {
     headers: { Authorization: `Bearer ${token}` }
   };
-  return API.put('/matches', { name, visibility, password }, config);
+  return API.post('/matches', { name, visibility, password }, config);
 }
 
-export const joinMatch = (name, password) => {
+export const joinMatch = (id, password) => {
   const token = sessionStorage.getItem('token');
   const config = {
     headers: { Authorization: `Bearer ${token}` }
   };
-  return API.post('/matches', { name, password }, config);
+  return API.patch('/matches', { id, password }, config);
 }

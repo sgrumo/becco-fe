@@ -8,6 +8,7 @@ import Loader from './components/Loader/Loader';
 const About = lazy(() => import('./containers/About/About'));
 const Home = lazy(() => import('./containers/Home/Home'));
 const Game = lazy(() => import('./containers/Game/Game'))
+const Match = lazy(() => import('./containers/Match/Match'))
 const SignIn = lazy(() => import('./containers/SignIn/SignIn'))
 const SignUp = lazy(() => import('./containers/SignUp/SignUp'))
 const Profile = lazy(() => import('./containers/Profile/Profile'));
@@ -28,6 +29,9 @@ function App() {
             </Route>
             <Route exact path="/profile">
               <Profile />
+            </Route>
+            <Route path="/game/:gameID">
+              <Match />
             </Route>
             <Route exact path="/game">
               <Game />

@@ -51,7 +51,7 @@ const LoginForm = ({ sendRequest, receiveRequest }) => {
       }
       {redirect && <Redirect to="/game" />}
       <button type="submit" className="btn btn-primary">Login</button>
-      <Link to="/signup">Registrati!</Link>
+      <Link to="/signup">Non hai un account? Registrati!</Link>
     </form>
   )
 }
